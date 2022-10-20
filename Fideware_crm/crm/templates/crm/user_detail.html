@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h5 class="h2 my-3">{{ object.name }} {{ object.last_name }}</h5>
+
+    <div style="align-center">
+        <br>
+        <table border="0" width="95%" align="center" cellpadding="5" cellspacing="5">
+            <tr>
+                <td style="text-align:left" valign="top">
+
+                    <div class="list-group-item list-group-item-dark">
+                        <span class="input-group-text">Должность:</span><br>
+                        {{object.job_title}}
+                    </div>
+
+                    <div class="list-group-item list-group-item-dark">
+                        <span class="input-group-text">Компания:</span><br>
+                        {{object.company}}
+                    </div>
+
+                    <div class="list-group-item list-group-item-dark">
+                        <span class="input-group-text">Email:</span><br>
+                        {{object.email}}
+                    </div>
+
+                    <div class="list-group-item list-group-item-dark">
+                        <span class="input-group-text"><a href={{object.linkedin}}>Ссылка LinkedIn</a></span><br>
+                        {{object.linkedin}}
+                    </div>
+
+                    <div class="list-group-item list-group-item-dark">
+                        <span class="input-group-text">Группа</span><br>
+                        {{object.group}}
+                    </div>
+
+                    <div class="list-group-item list-group-item-dark">
+                        <span class="input-group-text">Доп. контакты и информация:</span><br>
+                        {{object.add_contact}}
+                    </div>
+                </td>
+                <td style="text-align:left" valign="top">
+                    <div class="list-group-item list-group-item-success">
+                        <span class="input-group-text">Дата последнего контакта:</span><br>
+                        {{object.last_contact}}
+                    </div>
+
+                    <div class="list-group-item list-group-item-danger">
+                        <span class="input-group-text">Дата следующего контакта:</span><br>
+                        {{object.next_contact}}
+                    </div>
+
+                    <div class="list-group-item list-group-item-dark">
+                        <span class="input-group-text">Текущий статус лида:</span><br>
+                        {{object.status}}
+                    </div>
+
+                    <div class="list-group-item list-group-item-dark">
+                        <span class="input-group-text">Текущий шаг лида в процессе лидгена:</span><br>
+                        {{object.step}}
+                    </div>
+
+                    <div class="list-group-item list-group-item-dark">
+                        <span class="input-group-text">Комментарий:</span><br>
+                        {{object.comment}}
+                    </div>
+
+                    <div class="list-group-item list-group-item-dark">
+                        <span class="input-group-text">История:</span><br>
+                        {{object.history}}
+                        <br>
+                        <a>Создан: </a>
+                        {{object.created}}
+                        <br>
+                        <a>Обновлён: </a>
+                        {{object.updated}}
+                        <br>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <ul class="nav nav-pills justify-content-end" >
+        <li class="nav-item">
+            <a class="btn btn-warning" href="{% url 'user-update' user.pk %}">Изменить</a>
+        </li>
+        <li class="nav-item nav-item-danger">
+          <a class="btn btn-danger" href="{% url 'user-delete' user.pk %}">Удалить</a>
+        </li>
+      </ul>
+    </div>
+
+</div>
+
+{% endblock %}

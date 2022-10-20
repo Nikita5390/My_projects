@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block bar_list %}class="nav-link active" {% endblock %}
+
+{% block content %}
+
+<table>
+    <tr>
+        <td>
+        <form>
+            <div class="form-control form-control-lg" type="text">
+                <label for="InputFamily">Поиск по фамилии</label>
+                <input class="form-control" id="InputFamily" placeholder="Введите фамилию">
+                <button type="submit" class="btn btn-primary">Поиск</button>
+            </div>
+        </form>
+        </td>
+        <td>
+        <form>
+            <div class="form-control form-control-lg" type="text">
+                <label for="InputDate">Поиск по дате</label>
+                <input class="form-control" id="InputDate" placeholder="Введите дату">
+                <button type="submit" class="btn btn-primary" href="{% url 'user-list' %}?status=Запрос отправлен">Поиск</button>
+            </div>
+        </form>
+        </td>
+    </tr>
+</table>
+<a class="btn btn-warning" href="{% url 'users_date_filter' pk=4 %}" role="button">Оповещение!</a>
+<div class="container">
+    <div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        Фильтр по статусу
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <a class="btn btn-outline-primary" href="{% url 'user-list' %}?status=Запрос отправлен" role="button">Запрос отправлен</a>
+        <a class="btn btn-outline-primary" href="{% url 'user-list' %}?status=Отмена запроса" role="button">Отмена запроса</a>
+        <a class="btn btn-outline-primary" href="{% url 'user-list' %}?status=Повторный запрос" role="button">Повторный запрос</a>
+        <a class="btn btn-outline-primary" href="{% url 'user-list' %}?status=В контактах" role="button">В контактах</a>
+        <a class="btn btn-outline-primary" href="{% url 'user-list' %}?status=Не сейчас" role="button">Не сейчас</a>
+        <a class="btn btn-outline-primary" href="{% url 'user-list' %}?status=Хочет узнать больше" role="button">Хочет узнать больше</a>
+        <a class="btn btn-outline-primary" href="{% url 'user-list' %}?status=Готов созвониться" role="button">Готов созвониться</a>
+        <a class="btn btn-outline-primary" href="{% url 'user-list' %}?status=Назначен звонок" role="button">Назначен звонок</a>
+        <a class="btn btn-outline-primary" href="{% url 'user-list' %}?status=Состоялся звонок" role="button">Состоялся звонок</a>
+        <a class="btn btn-outline-primary" href="{% url 'user-list' %}?status=Сконвертирован" role="button">Сконвертирован</a>
+        <a class="btn btn-outline-primary" href="{% url 'user-list' %}?status=Не целевая аудитория" role="button">Не целевая аудитория</a>
+        <a class="btn btn-outline-primary" href="{% url 'user-list' %}?status=Не пишите мне больше" role="button">Не пишите мне больше</a>
+        <a class="btn btn-outline-primary" href="{% url 'user-list' %}?status=Удалил" role="button">Удалил</a>
+      </div>
+    </div>
+   <div class="accordion-item">
+    <h2 class="accordion-header" id="headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        Фильтр по шагу в цепочке лидгена
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <a class="btn btn-outline-success" href="{% url 'user-list' %}?step=Поблагодарили за коннект" role="button">Поблагодарили за коннект</a>
+        <a class="btn btn-outline-success" href="{% url 'user-list' %}?step=Отправили полезный контект" role="button">Отправили полезный контект</a>
+        <a class="btn btn-outline-success" href="{% url 'user-list' %}?step=Отправили опрос" role="button">Отправили опрос</a>
+        <a class="btn btn-outline-success" href="{% url 'user-list' %}?step=Отправили наш кейс" role="button">Отправили наш кейс</a>
+        <a class="btn btn-outline-success" href="{% url 'user-list' %}?step=Предложили созвониться" role="button">Предложили созвониться</a>
+        <a class="btn btn-outline-success" href="{% url 'user-list' %}?step=Пнули раз" role="button">Пнули раз</a>
+        <a class="btn btn-outline-success" href="{% url 'user-list' %}?step=Пнули два" role="button">Пнули два</a>
+        <a class="btn btn-outline-success" href="{% url 'user-list' %}?step=Пнули на почту" role="button">Пнули на почту</a>
+        <a class="btn btn-outline-success" href="{% url 'user-list' %}?step=Повторно пнули на почту" role="button">Повторно пнули на почту</a>
+      </div>
+    </div>
+    <div class="accordion-item">
+    <h2 class="accordion-header" id="headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        Фильтр по дате следующего контакта
+      </button>
+        </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <a class="btn btn-outline-danger" href="{% url 'users_date_filter' pk=1 %}" role="button">Сегодня</a>
+        <a class="btn btn-outline-danger" href="{% url 'users_date_filter' pk=2 %}" role="button">Завтра</a>
+        <a class="btn btn-outline-danger" href="{% url 'users_date_filter' pk=3 %}" role="button">Просроченные</a>
+      </div>
+    </div>
+
+
+    <h3 class="h2 my-3">Твои пользователи:</h3>
+
+    <div class="list-group">
+
+
+        {% for user in object_list %}
+        <a href="{% url 'user-detail' user.pk %}"
+           class="list-group-item list-group-item-action list-group-item-danger">{{ user.name }} {{user.last_name}} ____
+        LinkedIn: {{user.linkedin}} ____ Email: {{user.email}}</a>
+        {% empty %}
+        <a href="{% url 'user-add'%}" class="list-group-item list-group-item-action ">Попробуй добавь какого-нибудь
+            пользователя... </a>
+        {% endfor %}
+
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block bar_add %}class="nav-link active" {% endblock %}
+
+{% block content %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    <h3 class="h2 my-3">Обновить информацию о пользователе</h3>
+    <div style="align-center">
+        <br>
+        <table border="0" width="95%" align="center" cellpadding="10" cellspacing="10">
+            <tr>
+                <td style="text-align:left" valign="top">
+
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text">Имя:</span><br>
+                        {{form.name}}
+                    </div>
+
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text">Фамилия:</span><br>
+                        {{form.last_name}}
+                    </div>
+
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text">Должность:</span><br>
+                        {{form.job_title}}
+                    </div>
+
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text">Компания:</span><br>
+                        {{form.company}}
+                    </div>
+
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text">Email:</span><br>
+                        {{form.email}}
+                    </div>
+
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text">Group:</span><br>
+                        {{form.group}}
+                    </div>
+
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text">Ссылка LinkedIn</span><br>
+                        {{form.linkedin}}
+                    </div>
+
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text">Доп. контакты и информация:</span><br>
+                        {{form.add_contact}}
+                    </div>
+                </td>
+                <td style="text-align:left" valign="top">
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text">Дата последнего контакта:</span><br>
+                        {{form.last_contact}}
+                    </div>
+
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text">Дата следующего контакта:</span><br>
+                        {{form.next_contact}}
+                    </div>
+
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text">Текущий статус лида:</span><br>
+                        {{form.status}}
+                    </div>
+
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text">Текущий шаг лида в процессе лидгена:</span><br>
+                        {{form.step}}
+                    </div>
+
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text">Комментарий:</span><br>
+                        {{form.comment}}
+                    </div>
+
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text">История:</span><br>
+                        {{form.history}}
+                    </div>
+                </td>
+            </tr>
+        </table>
+        {{form.next_contact.errors}}
+        <button class="btn btn-success" type="submit">
+            Обновить
+        </button>
+    </div>
+</form>
+{% endblock %}
