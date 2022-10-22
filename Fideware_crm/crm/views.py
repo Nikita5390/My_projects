@@ -11,9 +11,7 @@ from .models import User
 from django.shortcuts import render
 from datetime import datetime, timedelta
 import requests
-from .serializer import UserSerializer
-
-
+from django.db.models import Q
 
 
 class UserCreateView(CreateView):
@@ -32,12 +30,19 @@ class UserListView(ListView):
         status = self.request.GET.get("status")
         step = self.request.GET.get("step")
         next_contact = self.request.GET.get("next_contact")
+        search_query = self.request.GET.get("search", "")
+        search_name_query = self.request.GET.get("search_name", "")
+
         result = User.objects.all()
         pk = 0
         if status:
             result = User.objects.filter(status=status)
         if step:
             result = User.objects.filter(step=step)
+        if search_query:
+            result = User.objects.filter(Q(last_name__icontains=search_query) | Q(name__icontains=search_query))
+        if search_name_query:
+            result = User.objects.order_by("name")
         return result
 
 
@@ -56,12 +61,6 @@ class UserDeleteView(DeleteView):
 
 
 class UserUpdateView(UpdateView):
-    # data = User.objects.all()
-    # def post(self, request, *args, **kwargs):
-    #     serializer = User.objects.all()
-    #     serializer.is_valid(raise_exception=True)
-    #     serializer.save()
-
     template_name: str = "crm/user_update.html"
     form_class: type = UserForm
     model = User
@@ -84,5 +83,4 @@ def users_date_filter(request, pk):
     if pk == 4:
         now = datetime.now()
         users = User.objects.filter(next_contact__lte=now.date())
-    print(users)
     return render(request, "crm/user_list.html", {"object_list": users})

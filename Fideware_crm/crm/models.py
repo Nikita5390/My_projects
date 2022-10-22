@@ -72,31 +72,7 @@ class User(models.Model):
     def __str__(self):
         return '%s' % self.name
 
-
-# class UserHistory(models.Model):
-#     class Meta:
-#         db_table = "users_history"
-#
-#     history_id = models.AutoField(primary_key=True)
-#     user = models.ForeignKey(User, unique=False, on_delete=models.CASCADE)
-#
-#     name = models.CharField(max_length=20, null=False)
-#     last_name = models.CharField(max_length=20, null=False)
-#     job_title = models.CharField(max_length=50)
-#     company = models.CharField(max_length=50)
-#     email = models.EmailField(max_length=256)
-#     linkedin = models.CharField(max_length=256)
-#     add_contact = models.TextField()
-#     group = models.CharField(max_length=20)
-#
-#     last_contact = models.DateField(null=False)
-#     next_contact = models.DateField(null=False)
-#     status = models.CharField(max_length=50)
-#     step = models.CharField(max_length=50)
-#     history = models.TextField()
-#
-#     created = models.DateTimeField(auto_now_add=True)
-
+# IMPORT EXCEL:
 # CREATE TABLE fw_crm (User_name VARCHAR (255) NOT NULL, Last_name VARCHAR (255) NOT NULL,
 # Linked VARCHAR (255) NOT NULL, Email VARCHAR (255) NOT NULL,
 # Job VARCHAR (255) NOT NULL, Company VARCHAR (255) NOT NULL,
