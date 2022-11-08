@@ -17,4 +17,4 @@ class CategorySerializer(serializers.ModelSerializer):
 class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaction
-        fields = ["id", "count", "organization", "description", "user_id", "category_id"]
+        fields = ["id", "count", "date", "organization", "description", "user_id", "category_id"]

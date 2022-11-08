@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from rest_framework import generics, viewsets
-from .models import User, Transaction
-from .serializers import UserSerializer, TransactionSerializer
-from .filters import TransactionFilter
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from .permissions import IsOwnerOrReadOnly
+from .models import User, Transaction, Category
+from .serializers import UserSerializer, TransactionSerializer, CategorySerializer
+from .filters import TransactionFilter, CategoryFilter
+from rest_framework.filters import OrderingFilter
 
 
 class UserCreateListApiView(generics.ListCreateAPIView):
@@ -13,13 +16,21 @@ class UserCreateListApiView(generics.ListCreateAPIView):
 class TransactionViewSet(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
-    filter_backends = TransactionFilter
+    filter_backends = [TransactionFilter, OrderingFilter]
+    filter_fields = ['count', 'date', 'organization']
+    ordering_fields = ['count', 'date', 'organization']
 
-    ordering_fields = ['count', 'date']
+    def get_permissions(self):
+        if self.action == 'destroy' or self.action == 'create' or self.action == 'update':
+            permission_classes = [IsOwnerOrReadOnly]
+        else:
+            permission_classes = [IsAdminUser]
+        return [permission() for permission in permission_classes]
 
-    def get_queryset(self):
-        count = self.request.query_params.get("count")
-        queryset = self.queryset.all()
-        if count:
-            queryset = self.queryset.filter(count=count)
-        return queryset
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    filter_backends = [CategoryFilter, OrderingFilter]
+    filter_fields = ['title']
+    ordering_fields = ['title']
