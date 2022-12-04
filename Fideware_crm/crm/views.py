@@ -30,7 +30,7 @@ class UserListView(ListView):
         status = self.request.GET.get("status")
         step = self.request.GET.get("step")
         search_query = self.request.GET.get("search", "")
-        search_name_query = self.request.GET.get("search_name", "")
+        order_name_query = self.request.GET.get("name", "")
         search_date_query = self.request.GET.get("search_date", "")
 
         result = User.objects.all()
@@ -41,7 +41,7 @@ class UserListView(ListView):
             result = User.objects.filter(step=step)
         if search_query:
             result = User.objects.filter(Q(last_name__icontains=search_query) | Q(name__icontains=search_query))
-        if search_name_query:
+        if order_name_query:
             result = User.objects.order_by("name")
         if search_date_query:
             result = User.objects.filter(next_contact=search_date_query)
@@ -73,16 +73,24 @@ class UserUpdateView(UpdateView):
 
 def users_date_filter(request, pk):
     users = User.objects.all()
+    step = request.GET.get("step")
     if pk == 1:
         now = datetime.now()
         users = User.objects.filter(next_contact=now.date())
     if pk == 2:
         now = datetime.now() + timedelta(days=1)
         users = User.objects.filter(next_contact=now.date())
-    if pk == 3:
+    if pk == 3 and step != "Kicked_4_mail":
         now = datetime.now() - timedelta(days=1)
         users = User.objects.filter(next_contact__lte=now.date())
     if pk == 4:
         now = datetime.now()
         users = User.objects.filter(next_contact__lte=now.date())
+    if pk == 5:
+        users = User.objects.order_by("next_contact")
+    return render(request, "crm/user_list.html", {"object_list": users})
+
+
+def users_name_filter(request):
+    users = User.objects.order_by("name")
     return render(request, "crm/user_list.html", {"object_list": users})

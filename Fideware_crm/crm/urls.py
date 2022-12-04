@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import UserCreateView, UserListView, UserDetailView, UserDeleteView, \
-    UserUpdateView, users_date_filter
+    UserUpdateView, users_date_filter, users_name_filter
 
 urlpatterns = [
     path("add/", view=UserCreateView.as_view(), name="user-add"),
@@ -9,5 +9,6 @@ urlpatterns = [
     path("<str:pk>/delete", view=UserDeleteView.as_view(), name="user-delete"),
     path("<str:pk>/update", view=UserUpdateView.as_view(), name="user-update"),
     path("filter/<int:pk>", view=users_date_filter, name="users_date_filter"),
+    path("order/name", view=users_name_filter, name="users_name_filter"),
 
 ]
