@@ -29,9 +29,9 @@ class UserListView(ListView):
     def get_queryset(self):
         status = self.request.GET.get("status")
         step = self.request.GET.get("step")
-        next_contact = self.request.GET.get("next_contact")
         search_query = self.request.GET.get("search", "")
         search_name_query = self.request.GET.get("search_name", "")
+        search_date_query = self.request.GET.get("search_date", "")
 
         result = User.objects.all()
         pk = 0
@@ -43,6 +43,8 @@ class UserListView(ListView):
             result = User.objects.filter(Q(last_name__icontains=search_query) | Q(name__icontains=search_query))
         if search_name_query:
             result = User.objects.order_by("name")
+        if search_date_query:
+            result = User.objects.filter(next_contact=search_date_query)
         return result
 
 
