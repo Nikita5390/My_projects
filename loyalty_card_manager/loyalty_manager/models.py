@@ -134,20 +134,12 @@ def order_in_card_post_save(sender, instance, created, **kwargs):
     card = instance.card
     all_order_in_card = OrderInCard.objects.filter(card=card)
     card_total_order = len(all_order_in_card)
-#  !!!!!!!!!!!!!!!!!!!!!
     order = instance.order
     all_price_in_card = OrderInCard.objects.filter(order=order)
-    # all_price_in_card = order.total_price #  сумма по одному ордеру
-
-    # print(all_price_in_card)
-    # card_total_price = sum(all_price_in_card)
     card_total_price = card.total_price
     for item in all_price_in_card:
         card_total_price += item.order.total_price
 
-    instance.card.total_price = card_total_price
-
-#  !!!!!!!!!!!!!!!!!
     instance.card.total_order = card_total_order
     instance.card.save(force_update=True)
 

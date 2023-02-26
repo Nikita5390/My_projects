@@ -1,10 +1,19 @@
 from django.shortcuts import render
 from rest_framework import viewsets, filters
-from .models import Card
-from .serializers import CardSerializer
+from .models import Card, Order, Product
+from .serializers import CardSerializer, OrderSerializer, ProductSerializer
 import random
 import string
 from rest_framework.response import Response
+
+
+def card_generator():
+    card_series = list(string.ascii_uppercase)
+    card_number = list(range(1, 100))
+    random_series = random.choice(card_series)
+    random_number = random.choice(card_number)
+    random_card = [random_series, random_number]
+    return random_card
 
 
 class CardViewSet(viewsets.ModelViewSet):
@@ -24,10 +33,11 @@ class CardViewSet(viewsets.ModelViewSet):
         return Response(status=200)
 
 
-def card_generator():
-    card_series = list(string.ascii_uppercase)
-    card_number = list(range(1, 100))
-    random_series = random.choice(card_series)
-    random_number = random.choice(card_number)
-    random_card = [random_series, random_number]
-    return random_card
+class OrderViewSet(viewsets.ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
