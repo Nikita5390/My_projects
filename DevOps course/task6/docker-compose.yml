@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./kanban-backend
+    ports:
+      - "8081:8081"
+    restart: always
+
+  frontend:
+    build: ./kanban-frontend
+    ports:
+      - "8080:8080"
+    restart: always

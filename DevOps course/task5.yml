@@ -1,0 +1,40 @@
+---
+- name: Обновление системы и установка Nginx
+  hosts: all
+  become: true
+  tasks:
+
+    - name: Обновить список пакетов
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Обновить все установленные пакеты
+      apt:
+        upgrade: dist
+
+    - name: Установить nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Обновить стартовую страницу Nginx
+      copy:
+        content: |
+          <html>
+          <head><title>Добро пожаловать!</title></head>
+          <body>
+            <h1>Nginx установлен через Ansible 🎉</h1>
+            <p>Это кастомная стартовая страница.</p>
+          </body>
+          </html>
+        dest: /var/www/html/index.nginx-debian.html
+        owner: www-data
+        group: www-data
+        mode: '0644'
+
+    - name: Убедиться, что Nginx запущен
+      service:
+        name: nginx
+        state: started
+        enabled: yes
